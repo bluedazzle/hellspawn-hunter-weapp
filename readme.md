@@ -4,6 +4,10 @@
 
 使用：微信－小程序－搜索－式神猎手
 
+或扫描二维码： 
+
+![](https://github.com/bluedazzle/hellspawn-hunter-weapp/blob/master/static/image/display/ssqrcode.jpg)
+
 ![](https://github.com/bluedazzle/hellspawn-hunter-weapp/blob/master/static/image/display/pre.png) 
 
 ## 效果图： 
