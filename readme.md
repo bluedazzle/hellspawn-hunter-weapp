@@ -1,5 +1,9 @@
 # 阴阳师妖怪搜索小程序 
 
+### 名称：式神猎手
+
+使用：微信－小程序－搜索－式神猎手
+
 ![](https://github.com/bluedazzle/hellspawn-hunter-weapp/blob/master/static/image/display/pre.png) 
 
 ## 效果图： 
