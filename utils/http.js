@@ -245,7 +245,7 @@ function binl2b64(binarray) {
 }
 
 function generateSign(timestamp) {
-    var secret = '';
+    var secret = 'eKxzhDfGkvcv9MaLQdeWgSlqnX4CosiIkR17Z0oAPmNUjBOw6nlHcTfupzbFhupy';
     var sign = hex_md5(timestamp + secret);
     return sign;
 }
