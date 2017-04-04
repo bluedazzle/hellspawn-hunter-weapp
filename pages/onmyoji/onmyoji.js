@@ -40,8 +40,10 @@ Page({
         oldRecord[index] = hs;
         oldRecord.sort(function(a, b){
         return b.weight - a.weight});
+        oldRecord = oldRecord.slice(0, 10);
       }else{
         oldRecord.unshift(hs);
+        oldRecord = oldRecord.slice(0, 10);
       }
       wx.setStorage({
         key: 'search_record',
@@ -74,8 +76,9 @@ Page({
               hellspawn: res.data.body.hellspawn
           })
           context.addHellspawnToLocalStoage();
+          var title = '式神猎手 - ' + context.data.hellspawn.name;
           wx.setNavigationBarTitle({
-            title: context.data.hellspawn.name,
+            title: title,
             success: function(res) {
               // success
             }
