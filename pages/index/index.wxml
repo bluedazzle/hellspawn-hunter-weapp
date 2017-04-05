@@ -10,10 +10,64 @@
   <view class="search_view">
     <input placeholder="输入神秘线索或式神名称" type="text" value="{{ searchText }}" class="search_input" bindinput="bindSearch" />
   </view>
-  <view class="">
+  <view class="search_info" wx:if="{{ isSearching }}">
+    <text>查询中...</text>
+  </view>
+  <view class="" wx:if="{{searchText!=''}}">
     <block wx:for="{{ hellspawnList }}" wx:key="id">
       <template is="onmyoji" data="{{ ...item }}" />
     </block>
+  </view>
+  <view class="hellspawn_map" wx:else>
+  <view class="weui-tab">
+            <view class="navbar">
+                <block wx:for-items="{{tabs}}" wx:key="{{index}}">
+                    <view id="{{index}}" class="navbar_item {{activeIndex == index ? 'bar_item_on' : ''}}" bindtap="tabClick">
+                        <view class="navbar_title">{{item}}</view>
+                    </view>
+                </block>
+                <view>
+                <view class="navbar_slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+                </view>
+            </view>
+            <view class="tab_panel">
+                <view class="tab_content" hidden="{{activeIndex != 0}}">
+                  <view class="girds">
+                <block wx:for="{{hellspawnMap}}" wx:if="{{item.rarity==1}}" wx:key="{{index}}">
+                <navigator url="../onmyoji/onmyoji?id={{ item.id }}" class="grid" hover-class="grid_active">
+                  <image src="../../static/image/icon/{{item.name_pinyin}}@icon.png" class="grid_icon"></image>
+                  <view class="grid_label">{{item.name}}</view>
+                </navigator>
+                </block>
+            </view>
+                </view>
+                <view class="tab_content" hidden="{{activeIndex != 1}}">
+                  <block wx:for="{{hellspawnMap}}" wx:if="{{item.rarity==2}}" wx:key="{{index}}">
+                <navigator url="../onmyoji/onmyoji?id={{ item.id }}" class="grid" hover-class="grid_active">
+                  <image src="../../static/image/icon/{{item.name_pinyin}}@icon.png" class="grid_icon"></image>
+                  <view class="grid_label">{{item.name}}</view>
+                </navigator>
+                </block>
+                </view>
+                <view class="tab_content" hidden="{{activeIndex != 2}}">
+                  <block wx:for="{{hellspawnMap}}" wx:if="{{item.rarity==3}}" wx:key="{{index}}">
+                <navigator url="../onmyoji/onmyoji?id={{ item.id }}" class="grid" hover-class="grid_active">
+                  <image src="../../static/image/icon/{{item.name_pinyin}}@icon.png" class="grid_icon"></image>
+                  <view class="grid_label">{{item.name}}</view>
+                </navigator>
+                </block>
+                </view>
+                <view class="tab_content" hidden="{{activeIndex != 3}}">
+                  <block wx:for="{{hellspawnMap}}" wx:if="{{item.rarity==4}}" wx:key="{{index}}">
+                <navigator url="../onmyoji/onmyoji?id={{ item.id }}" class="grid" hover-class="grid_active">
+                  <image src="../../static/image/icon/{{item.name_pinyin}}@icon.png" class="grid_icon"></image>
+                  <view class="grid_label">{{item.name}}</view>
+                </navigator>
+                </block>
+                </view>
+            </view>
+        </view>
+
   </view>
   <view class="footer">
     <text>Copyright © 2017 RaPoSpectre.com</text>

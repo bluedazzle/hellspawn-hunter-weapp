@@ -34,21 +34,25 @@ Page({
       })
     }
   },
-  bindSubmit: function(){
+  bindSubmit: function(e){
     if(this.data.content){
       var context = this;
       var url = http.generateUrl('api/v1/feedback');
+      var fid = e.detail.formId;
       wx.showToast({
         title: '提交中',
         icon: 'loading',
         duration: 100000
       });
+      var session = wx.getStorageSync('session');
       wx.request({
         url: url,
         data: {
           is_advice: context.data.isAdvice,
           scene_id: context.data.sid,
-          content: context.data.content
+          form_id: fid,
+          content: context.data.content,
+          session: session
         },
         method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
         // header: {}, // 设置请求的 header
@@ -82,8 +86,98 @@ Page({
       })
     }
   },
+  onLogin: function(){
+    wx.login({
+      success: function(res){
+        // success
+        if(res.code){
+          var url = http.generateUrl('api/v1/auth');
+          wx.request({
+            url: url,
+            data: {"code": res.code},
+            method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+            // header: {}, // 设置请求的 header
+            success: function(res){
+              // success
+              if(res.data.status==1){
+                var session = res.data.body.session;
+                wx.setStorageSync('session', session);
+                wx.getUserInfo({
+                  success: function(res){
+                    var user = res.userInfo;
+                    var url = http.generateUrl('api/v1/user');
+                    wx.request({
+                      url: url,
+                      data: {
+                        session: session,
+                        nick: user.nickName,
+                        avatar: user.avatarUrl
+                      },
+                      method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+                      // header: {}, // 设置请求的 header
+                      success: function(res){
+                        // success
+                      },
+                      fail: function() {
+                        // fail
+                      },
+                      complete: function() {
+                        // complete
+                      }
+                    })
+                  },
+                  fail: function() {
+                    // fail
+                  },
+                  complete: function() {
+                    // complete
+                  }
+                })
+              }
+            },
+            fail: function() {
+              // fail
+            },
+            complete: function() {
+              // complete
+            }
+          })
+        }
+      },
+      fail: function() {
+        // fail
+      },
+      complete: function() {
+        // complete
+      }
+    })
+  },
   onReady:function(){
     // 页面渲染完成
+    var session = wx.getStorageSync('session');
+    var context = this;
+    if(session){
+      var url = http.generateUrl('api/v1/auth') + '&session=' + session;
+      wx.request({
+        url: url,
+        method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+        // header: {}, // 设置请求的 header
+        success: function(res){
+          // success
+          if(res.data.status!=1){
+              context.onLogin();
+          }
+        },
+        fail: function() {
+          // fail
+        },
+        complete: function() {
+          // complete
+        }
+      })
+    }else{
+      this.onLogin();
+    }
   },
   onShow:function(){
     // 页面显示

@@ -2,6 +2,7 @@
 <view class="title">
     <text>选择类型</text>
 </view>
+<form report-submit="true" bindsubmit="bindSubmit">
 <view class="radio_list">
 <radio-group bindchange="bindRadio">
     <label class="radio_item"><radio checked="{{ !isAdvice }}" value="1"></radio>数据报错</label>
@@ -21,5 +22,6 @@
     <textarea class="textarea" bindinput="bindTextArea" value="{{ content }}" />
 </view>
 <view class="button_area">
-    <button class="button" bindtap="bindSubmit">提交</button>
+    <button class="button" formType="submit">提交</button>
 </view>
+</form>

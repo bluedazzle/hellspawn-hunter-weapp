@@ -138,7 +138,10 @@
     display: inline;
     position: absolute;
     right: 10rpx;
-    font-size: small;
+    font-size: x-small;
+    border-radius: 10rpx;
+    padding: 5rpx;
+    background-color: #DDF0ED;
 }
 
 .no_scene {
